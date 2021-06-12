@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <title th:text="${title}">KuK KLT</title>
 </head>
-<body>
-<h1 th:text="${welcome}"></h1>
+<body th:object="${converterModel}">
+<h1 th:text="*{welcome}"></h1>
+<h2 th:text="*{applicationTitle}"></h2>
 
-<h2 th:text="${applicationTitle}"></h2>
+<form name="*{applicationTitle}" action="#" th:action="@{/convert}" th:object="${converterModel}" method="post">
+    <table>
+        <tr>
+            <td>
+                <input th:field="*{quantity}" type="number" placeholder="quantity"/>
+            </td>
+            <td>
+                <select th:field="*{from}" th:name="from">
+                    <option th:each="currency : *{currencies}"
+                            th:value="${currency.id}"
+                            th:utext="${currency.id}+' - '+${currency.name}"/>
+                </select>
+            </td>
+<!--            <input type="hidden" value="*{currencies}" th:field="*{currencies}" th:name="currencies"/>-->
+            <td>
+                <label> to </label>
+            </td>
+            <td>
+                <select th:field="*{to}" th:name="to">
+                    <option th:each="currency : *{currencies}"
+                            th:value="${currency.id}"
+                            th:utext="${currency.id}+' - '+${currency.name}"/>
+                </select>
+            </td>
+            <td>
+                <span th:text="${result}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Convert</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
 </body>
 </html>

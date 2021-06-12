@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: KLT Converter
 
@@ -6,3 +8,22 @@ server:
   port: 8080
   servlet:
     context-path: /klt
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: BASIC
+  cache:
+    tti: 60
+    ttl: 60
+    max:
+      entries: 1000
+logging:
+  level:
+    de.c24.finacc.klt.service.ExchangeRatesApiProxy: DEBUG
+
+klt:
+  exchange_rates_api_access_key: 0daab3fd0ab5833576985af20b03bd0c
